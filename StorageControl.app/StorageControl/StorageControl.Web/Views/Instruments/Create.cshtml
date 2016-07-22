@@ -1,0 +1,39 @@
+﻿@model StorageControl.Web.Models.Instruments.InstrumentsCreateModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-offset-4 col-lg-4">
+        <h2>Adicionar</h2>
+
+        @using (Html.BeginForm("Create", "Instruments", FormMethod.Post, new { @class = "form-group"}))
+        {
+            @Html.LabelFor(m => m.Instrument.Manufacturer)
+            @Html.TextBoxFor(m => m.Instrument.Manufacturer, new { @class = "form-control" })
+            <br />
+            @Html.LabelFor(m => m.Instrument.Model)
+            @Html.TextBoxFor(m => m.Instrument.Model, new { @class = "form-control" })
+            <br />
+            @Html.LabelFor(m => m.Instrument.Amount)
+            @Html.TextBoxFor(m => m.Instrument.Amount, new { @class = "form-control" })
+            <br />
+            @Html.LabelFor(m => m.Instrument.UnitPrice)
+            @Html.TextBoxFor(m => m.Instrument.UnitPrice, new { @class = "form-control" })
+            <br />
+            @Html.LabelFor(m => m.Instrument.Category)
+            @Html.DropDownListFor(m => m.Instrument.Category.Id, new SelectList(Model.Categories
+                .Select(x => new { Value = x.Id, Text = x.Name }), "Value", "Text"), new { @class = "form-control" })
+            <br />
+            @Html.LabelFor(m => m.Instrument.Type)
+            @Html.DropDownListFor(m => m.Instrument.Type.Id, new SelectList(Model.InstrumentTypes
+                .Select(x => new { Value = x.Id, Text = x.Name }), "Value", "Text"), new { @class = "form-control"})
+            <br />
+            <button class="btn btn-default btn-sm text-center" type="submit">
+                <span class="glyphicon glyphicon-floppy-disk"></span>
+            </button>
+        }
+    </div>
+</div>

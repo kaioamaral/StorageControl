@@ -1,0 +1,43 @@
+﻿@model StorageControl.Web.Models.Categories.CategoriesListModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-offset-4 col-lg-4">
+            <h2 class="text-center">
+                Categorias 
+                <a href="Categories/Create" class="btn btn-default btn-sm" role="button">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            </h2>
+            <br />
+            <table class="table table-striped table-hover text-center">
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Name</th>
+                    <th class="text-center"></th>
+                </tr>
+                
+                @foreach (var category in Model.Categories)
+                {
+                    <tr>
+                        <td> @category.Id </td>
+                        <td> @category.Name </td>
+                        <td>
+                            <a href="Categories/Edit/@category.Id" class="btn btn-default btn-sm">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <a href="Categories/Delete/@category.Id" class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

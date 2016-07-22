@@ -1,0 +1,47 @@
+﻿@model StorageControl.Web.Models.InstrumentTypes.InstrumentTypesListModel
+     
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    
+<div class="container container-fluid">
+    <div class="row">
+        <div class="col-lg-offset-4 col-lg-4">
+            <h2 class="text-center">
+                Tipos
+                <a href="InstrumentTypes/Create" class="btn btn-default" role="button">
+                    <span class="glyphicon glyphicon-plus"></span>   
+                </a>
+            </h2>
+            <table class="table table-striped table-hover text-center">
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Nome</th>
+                    <th></th>
+                </tr>
+
+                @{
+                    if (Model.InstrumentTypes.Count > 0)
+                    {
+                        foreach (var instrumentType in this.Model.InstrumentTypes)
+                        {
+                            <tr>
+                                <td>@instrumentType.Id </td>
+                                <td>@instrumentType.Name </td>
+                                <td>
+                                    <a href="/InstrumentTypes/Edit/@instrumentType.Id" class="btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </a>
+                                    <a href="/InstrumentTypes/Delete/@instrumentType.Id" class="btn btn-danger btn-sm">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            </table>
+        </div>
+    </div>
+</div>

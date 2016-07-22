@@ -1,0 +1,27 @@
+﻿@model StorageControl.Web.Models.InstrumentTypes.InstrumentTypesEditModel 
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container container-fluid">
+    <div class="row">
+        <div class="col-lg-offset-4 col-lg-4">
+            <h2>Editar</h2>
+            
+            @using (Html.BeginForm(string.Format("Edit/{0}", Model.InstrumentType.Id),
+                "InstrumentTypes", FormMethod.Post, new { @class = "input-group"}))
+            {
+                <div class="input-group">
+                    @Html.TextBoxFor(m => m.InstrumentType.Name, new { @class = "form-control" })
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </button>
+                    </span>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+﻿@model StorageControl.Web.Models.Instruments.InstrumentsDeleteModel
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-offset-3 col-lg-6">
+            <h2>Confirmar deleção do instrumento?</h2>
+            @using (Html.BeginForm(string.Format("Delete/{0}", Model.Instrument.Id),
+                "Instruments", FormMethod.Post, new { @class = "form-group text-center" }))
+            {
+                <a href="../../Instruments" class="btn btn-default btn-sm">Não</a>
+                <button type="submit" class="btn btn-danger btn-sm">Sim</button>
+            }
+        </div>
+        <div class="col-lg-offset-3"></div>
+    </div>
+</div>

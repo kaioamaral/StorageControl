@@ -1,0 +1,5 @@
+C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Domain\bin\Debug\StorageControl.Domain.dll
+C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Domain\bin\Debug\StorageControl.Domain.pdb
+C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Domain\obj\Debug\StorageControl.Domain.csprojResolveAssemblyReference.cache
+C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Domain\obj\Debug\StorageControl.Domain.dll
+C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Domain\obj\Debug\StorageControl.Domain.pdb

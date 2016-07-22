@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Domain", "1. Domain", "{B90B5F39-D814-4F2D-B999-A96399F7B88E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Infra", "2. Infra", "{0875562B-0B1A-4CD3-A10C-42AF72A4BD45}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Application", "3. Application", "{060613E0-4C3D-4EE1-81B0-C6C27039CC70}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Tests", "4. Tests", "{123A19AB-F55F-46DC-A6EB-226ED8238B9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageControl.Domain", "StorageControl.Domain\StorageControl.Domain.csproj", "{4F76C2A3-F4C5-42A9-9263-9EA13D98566F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageControl.DataAccess", "StorageControl.DataAccess\StorageControl.DataAccess.csproj", "{E395BF15-5897-48CD-9268-1B19F37D1929}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageControl.NetFramework", "StorageControl.NetFramework\StorageControl.NetFramework.csproj", "{DAE34E3B-3F0A-4515-A6F1-36A08B226947}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageControl.Web", "StorageControl.Web\StorageControl.Web.csproj", "{009FA713-7C9F-4D58-B7F1-43AB08606529}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageControl.Kernel", "StorageControl.Kernel\StorageControl.Kernel.csproj", "{BE6094FD-FE74-41A0-812A-476E328D5438}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageControl.Tests", "StorageControl.Tests\StorageControl.Tests.csproj", "{74FC18A8-35E6-4C04-ACC6-F88466A90094}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4F76C2A3-F4C5-42A9-9263-9EA13D98566F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F76C2A3-F4C5-42A9-9263-9EA13D98566F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F76C2A3-F4C5-42A9-9263-9EA13D98566F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F76C2A3-F4C5-42A9-9263-9EA13D98566F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E395BF15-5897-48CD-9268-1B19F37D1929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E395BF15-5897-48CD-9268-1B19F37D1929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E395BF15-5897-48CD-9268-1B19F37D1929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E395BF15-5897-48CD-9268-1B19F37D1929}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAE34E3B-3F0A-4515-A6F1-36A08B226947}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAE34E3B-3F0A-4515-A6F1-36A08B226947}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAE34E3B-3F0A-4515-A6F1-36A08B226947}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAE34E3B-3F0A-4515-A6F1-36A08B226947}.Release|Any CPU.Build.0 = Release|Any CPU
+		{009FA713-7C9F-4D58-B7F1-43AB08606529}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{009FA713-7C9F-4D58-B7F1-43AB08606529}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{009FA713-7C9F-4D58-B7F1-43AB08606529}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{009FA713-7C9F-4D58-B7F1-43AB08606529}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE6094FD-FE74-41A0-812A-476E328D5438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE6094FD-FE74-41A0-812A-476E328D5438}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE6094FD-FE74-41A0-812A-476E328D5438}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE6094FD-FE74-41A0-812A-476E328D5438}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74FC18A8-35E6-4C04-ACC6-F88466A90094}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74FC18A8-35E6-4C04-ACC6-F88466A90094}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74FC18A8-35E6-4C04-ACC6-F88466A90094}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74FC18A8-35E6-4C04-ACC6-F88466A90094}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4F76C2A3-F4C5-42A9-9263-9EA13D98566F} = {B90B5F39-D814-4F2D-B999-A96399F7B88E}
+		{E395BF15-5897-48CD-9268-1B19F37D1929} = {0875562B-0B1A-4CD3-A10C-42AF72A4BD45}
+		{DAE34E3B-3F0A-4515-A6F1-36A08B226947} = {0875562B-0B1A-4CD3-A10C-42AF72A4BD45}
+		{009FA713-7C9F-4D58-B7F1-43AB08606529} = {060613E0-4C3D-4EE1-81B0-C6C27039CC70}
+		{BE6094FD-FE74-41A0-812A-476E328D5438} = {0875562B-0B1A-4CD3-A10C-42AF72A4BD45}
+		{74FC18A8-35E6-4C04-ACC6-F88466A90094} = {123A19AB-F55F-46DC-A6EB-226ED8238B9B}
+	EndGlobalSection
+EndGlobal
