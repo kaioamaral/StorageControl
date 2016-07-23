@@ -1,0 +1,17 @@
+﻿@using StorageControl.Web.Helpers;
+
+@{
+    var alerts = TempData.ContainsKey("TempDataAlerts") ?
+        (List<Alert>)TempData["TempDataAlerts"]
+        : new List<Alert>();
+
+    foreach (var alert in alerts)
+    {
+        <div class="alert alert-@alert.AlertStyle alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p class="text-center"><strong>@alerts[0].Message</strong></p>
+        </div>
+    }
+}

@@ -1,14 +1,13 @@
 ﻿using StorageControl.Domain.Contracts.Interfaces;
+using StorageControl.Web.Controllers.Base;
 using StorageControl.Web.Models.Categories;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace StorageControl.Web.Controllers
 {
-    public class CategoriesController : Controller
+    public class CategoriesController : BaseController
     {
         public ICategoriesRepository CategoriesRepository { get; set; }
 
@@ -17,7 +16,6 @@ namespace StorageControl.Web.Controllers
             this.CategoriesRepository = categoriesRepository;
         }
 
-        // GET: Categories
         public ViewResult Index()
         {
             CategoriesListModel model = new CategoriesListModel();
@@ -26,7 +24,6 @@ namespace StorageControl.Web.Controllers
             return View(model);
         }
         
-        // GET: Categories/Create
         public ViewResult Create()
         {
             CategoriesCreateModel model = new CategoriesCreateModel();
@@ -34,69 +31,164 @@ namespace StorageControl.Web.Controllers
             return View(model);
         }
 
-        // POST: Categories/Create
         [HttpPost]
-        public ViewResult Create(CategoriesCreateModel model)
+        public ActionResult Create(CategoriesCreateModel model)
         {
-            try
+            ValidateModel(model);
+            if (ModelState.IsValid)
             {
-                int result = CategoriesRepository.Create(model.Category);
-                return View("Index");
+                try
+                {
+                    int result = CategoriesRepository.Create(model.Category);
+
+                    if (result > 0)
+                    {
+                        Success(string.Format("Categoria '{0}' criada. :)",
+                        model.Category.Name));
+
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        Warning("Houve um problema ao processar sua requisição. :( Tente novamente.");
+                        return View(model);
+                    }
+                }
+                catch
+                {
+                    Error("Oops! Ocorreu um erro ao processar sua requisição. ;( Tente novamente.");
+                    return RedirectToAction("Create", model);
+                }
             }
-            catch
+            else
             {
-                return View();
+                Warning(BuildErrorMessage(GetErrors()));
+                return RedirectToAction("Create", model);
             }
         }
 
-        // GET: Categories/Edit/5
-        public ActionResult Edit(int id)
+        public ViewResult Edit(int id)
         {
             CategoriesEditModel model = new CategoriesEditModel();
-            model.Category = CategoriesRepository.Get(id);
 
-            return View(model);
+            if (id > 0)
+            {
+                model.Category = CategoriesRepository.Get(id);
+                return View(model);
+            }
+            else
+            {
+                return View("Error");
+            }
         }
 
-        // POST: Categories/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, CategoriesEditModel model)
         {
-            try
+            ValidateModel(model);
+            if (ModelState.IsValid)
             {
-                model.Category.Id = id;
-                int result = CategoriesRepository.Update(model.Category);
+                try
+                {
+                    model.Category.Id = id;
+                    int result = CategoriesRepository.Update(model.Category);
 
-                return RedirectToAction("Index");
+                    if (result > 0)
+                    {
+
+                        Success("Categoria atualizada.");
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        Warning("Houve um problema ao processar sua requisição. :( Tente novamente");
+                        return View(model);
+                    }
+                }
+                catch
+                {
+                    Error("Ocorreu um erro ao processar sua requisição. ;( Tente novamente.");
+                    return View("Error");
+                }
             }
-            catch
+            else
             {
-                return View();
+                Warning(BuildErrorMessage(GetErrors()));
+                return RedirectToAction("Edit", model);
             }
         }
 
-        // GET: Categories/Delete/5
         public ViewResult Delete(int id)
         {
-            CategoriesDeleteModel model = new CategoriesDeleteModel();
-            model.Category = CategoriesRepository.Get(id);
+            if (id > 0)
+            {
+                CategoriesDeleteModel model = new CategoriesDeleteModel();
+                model.Category = CategoriesRepository.Get(id);
 
-            return View(model);
+                return View(model);
+            }
+            else
+            {
+                return View("Error");
+            }
         }
 
-        // POST: Categories/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, CategoriesDeleteModel model)
         {
-            try
+            if (id > 0)
             {
-                int result = CategoriesRepository.Delete(id);
-                return RedirectToAction("Index");
+                try
+                {
+                    int result = CategoriesRepository.Delete(id);
+
+                    if (result > 0)
+                    {
+                        Success(string.Format("Categoria {0} excluída.", model.Category.Name));
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        Warning("Houve um problema ao processar sua requisição. :( Tente novamente");
+                        return View(model);
+                    }
+                }
+                catch
+                {
+                    Error("Ocorreu um erro ao processar sua requisição. ;( Tente novamente.");
+                    return RedirectToAction("Delete", model);
+                }
             }
-            catch
+            else
             {
-                return View();
+                Error("Categoria inexistente.");
+                return View("Error");
             }
         }
+        
+        #region [Model Validation]
+
+        public void ValidateModel(CategoriesCreateModel model)
+        {
+            if (model.Category.Name == string.Empty || model.Category.Name == null)
+            {
+                ModelState.AddModelError("Name",
+                    "Parece que o campo Nome não foi preenchido. :( Preencha-o e tente novamente.");
+            }
+        }
+
+        public void ValidateModel(CategoriesEditModel model)
+        {
+            if (model.Category.Id <= 0)
+            {
+                ModelState.AddModelError("Id", "Categoria inexistente. :(");
+            }
+            else if (model.Category.Name == string.Empty || model.Category.Name == null)
+            {
+                ModelState.AddModelError("Name",
+                    "Parece que o campo Nome não foi preenchido. :( Preencha-o e tente novamente.");
+            }
+        }
+        #endregion
     }
 }

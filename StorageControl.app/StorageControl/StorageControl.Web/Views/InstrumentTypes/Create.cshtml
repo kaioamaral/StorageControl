@@ -13,7 +13,7 @@
             @using (Html.BeginForm("Create", "InstrumentTypes", FormMethod.Post, new { @class = "input-group" }))
             {
                 <div class="input-group">
-                    @Html.TextBoxFor(m => m.InstrumentType.Name, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.InstrumentType.Name, new { @class = "form-control", @placeholder = "Nome" })
                     <div class="input-group-btn">
                         <button type="submit" class="btn btn-default">
                             <span class="glyphicon glyphicon-save"></span>

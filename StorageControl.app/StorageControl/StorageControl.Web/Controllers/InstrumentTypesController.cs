@@ -1,14 +1,12 @@
 ﻿using StorageControl.Domain.Contracts.Interfaces;
+using StorageControl.Web.Controllers.Base;
 using StorageControl.Web.Models.InstrumentTypes;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace StorageControl.Web.Controllers
 {
-    public class InstrumentTypesController : Controller
+    public class InstrumentTypesController : BaseController
     {
         public IInstrumentTypesRepository InstrumentTypesRepository { get; set; }
 
@@ -18,16 +16,16 @@ namespace StorageControl.Web.Controllers
         }
 
         // GET: InstrumentTypes
-        public ActionResult Index()
+        public ViewResult Index()
         {
             InstrumentTypesListModel model = new InstrumentTypesListModel();
-            model.InstrumentTypes.AddRange(InstrumentTypesRepository.List().ToList());
+            model.InstrumentTypes = InstrumentTypesRepository.List().ToList();
 
             return View(model);
         }
 
         // GET: InstrumentTypes/Create
-        public ActionResult Create()
+        public ViewResult Create()
         {
             InstrumentTypesCreateModel model = new InstrumentTypesCreateModel();
             return View(model);
@@ -37,88 +35,145 @@ namespace StorageControl.Web.Controllers
         [HttpPost]
         public ActionResult Create(InstrumentTypesCreateModel model)
         {
-            try
+            ValidateModel(model);
+            if (ModelState.IsValid)
             {
-                int result = InstrumentTypesRepository.Create(model.InstrumentType);
-
-                if (result > 0)
+                try
                 {
-                    //show success alert
-                }
-                else
-                {
-                    //show warning alert
-                }
+                    int result = InstrumentTypesRepository.Create(model.InstrumentType);
 
-                return RedirectToAction("Index");
+                    Success(string.Format("Tipo '{0}' criado. :)", model.InstrumentType.Name));
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    Error("Ocorreu um erro ao processar sua requisição. :(");
+                    return View("Error");
+                }
             }
-            catch (Exception e)
+            else
             {
-                throw e;
+                Warning(BuildErrorMessage(GetErrors()));
+                return View(model);
             }
         }
 
         // GET: InstrumentTypes/Edit/5
         public ActionResult Edit(int id)
         {
-            InstrumentTypesEditModel model = new InstrumentTypesEditModel();
-            model.InstrumentType = InstrumentTypesRepository.Get(id);
+            if (id > 0)
+            {
+                InstrumentTypesEditModel model = new InstrumentTypesEditModel();
+                model.InstrumentType = InstrumentTypesRepository.Get(id);
 
-            return View(model);
+                return View(model);
+            }
+            else
+            {
+                return View("Error");
+            }
         }
 
         // POST: InstrumentTypes/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, InstrumentTypesEditModel model)
         {
-            try
+            ValidateModel(model);
+            if (ModelState.IsValid)
             {
-                model.InstrumentType.Id = id;
-                int result = InstrumentTypesRepository.Update(model.InstrumentType);
-
-                if (result > 0)
+                try
                 {
-                    //show success result
-                }
+                    model.InstrumentType.Id = id;
+                    int result = InstrumentTypesRepository.Update(model.InstrumentType);
 
-                return RedirectToAction("Index");
+                    Success("Tipo atualizado.");
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View("Error");
+                }
             }
-            catch
+            else
             {
-                return View();
+                Warning(BuildErrorMessage(GetErrors()));
+                return View(model);
             }
         }
 
         // GET: InstrumentTypes/Delete/5
         public ActionResult Delete(int id)
         {
-            InstrumentTypesDeleteModel model = new InstrumentTypesDeleteModel();
-            model.InstrumentType = InstrumentTypesRepository.Get(id);
+            if (id > 0)
+            {
+                InstrumentTypesDeleteModel model = new InstrumentTypesDeleteModel();
+                model.InstrumentType = InstrumentTypesRepository.Get(id);
 
-            return View(model);
+                return View(model);
+            }
+            else
+            {
+                return View("Error");
+            }
         }
 
         // POST: InstrumentTypes/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, InstrumentTypesDeleteModel model)
         {
-            try
+            if (id > 0)
             {
-                model.InstrumentType.Id = id;
-
-                int result = InstrumentTypesRepository.Delete(model.InstrumentType.Id);
-
-                if (result > 0)
+                try
                 {
-                    //show success message
-                }
+                    model.InstrumentType = InstrumentTypesRepository.Get(id);
 
-                return RedirectToAction("Index");
+                    int result = InstrumentTypesRepository.Delete(model.InstrumentType.Id);
+
+                    if (result > 0)
+                    {
+                        Success(string.Format("Tipo '{0}' excluído. :)", model.InstrumentType.Name));
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        Error("Houve um problema ao processar sua requisição. :( Tente noavmente.");
+                        return View(model);
+                    }
+                }
+                catch
+                {
+                    return View("Error");
+                }
             }
-            catch
+            else
             {
-                return View(model);
+                return View("Error");
             }
         }
+
+        #region [Model Validation]
+        public void ValidateModel(InstrumentTypesCreateModel model)
+        {
+            if (model.InstrumentType.Name == null || model.InstrumentType.Name == string.Empty)
+            {
+                ModelState.AddModelError("Name",
+                    "Parece que o campo Nome não foi preenchido. :( Preencha-o e tente novamente.");
+            }
+        }
+
+        public void ValidateModel(InstrumentTypesEditModel model)
+        {
+            if (model.InstrumentType.Id < 0)
+            {
+                ModelState.AddModelError("Id", "Tipo inexistente. :(");
+            }
+            else if (model.InstrumentType.Name == null || 
+                model.InstrumentType.Name == string.Empty)
+            {
+                ModelState.AddModelError("Name",
+                    "Parece que o campo Nome não foi preenchido. :( Preencha-o e tente novamente.");
+            }
+        }
+        #endregion
     }
 }

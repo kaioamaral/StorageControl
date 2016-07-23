@@ -1,4 +1,3 @@
-C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Tests\obj\Debug\StorageControl.Tests.csprojResolveAssemblyReference.cache
 C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Tests\bin\Debug\roslyn\csc.exe
 C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Tests\bin\Debug\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Tests\bin\Debug\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -48,7 +47,6 @@ C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageContro
 C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Tests\bin\Debug\System.Web.WebPages.xml
 C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Tests\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Tests\bin\Debug\System.Web.WebPages.Razor.xml
-C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Tests\bin\Debug\xunit.abstractions.xml
 C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Tests\bin\Debug\xunit.assert.pdb
 C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Tests\bin\Debug\xunit.assert.xml
 C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Tests\bin\Debug\xunit.core.pdb
@@ -62,5 +60,8 @@ C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageContro
 C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Tests\bin\Debug\Microsoft.Practices.Unity.Mvc.xml
 C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Tests\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
 C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Tests\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Tests\obj\Debug\StorageControl.Tests.csprojResolveAssemblyReference.cache
 C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Tests\obj\Debug\StorageControl.Tests.dll
 C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Tests\obj\Debug\StorageControl.Tests.pdb
+C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Tests\bin\Debug\xunit.runner.visualstudio.testadapter.dll
+C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.Tests\bin\Debug\xunit.runner.utility.desktop.dll
