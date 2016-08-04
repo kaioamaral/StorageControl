@@ -1,7 +1,0 @@
-C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.NetFramework\bin\Debug\StorageControl.NetFramework.dll
-C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.NetFramework\bin\Debug\StorageControl.NetFramework.pdb
-C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.NetFramework\bin\Debug\StorageControl.Domain.dll
-C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.NetFramework\bin\Debug\StorageControl.Domain.pdb
-C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.NetFramework\obj\Debug\StorageControl.NetFramework.csprojResolveAssemblyReference.cache
-C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.NetFramework\obj\Debug\StorageControl.NetFramework.dll
-C:\Users\Kaio\Documents\Projects\StorageControl\StorageControl.app\StorageControl\StorageControl.NetFramework\obj\Debug\StorageControl.NetFramework.pdb
