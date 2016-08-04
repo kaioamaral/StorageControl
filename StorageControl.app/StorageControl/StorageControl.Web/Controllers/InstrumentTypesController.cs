@@ -15,7 +15,6 @@ namespace StorageControl.Web.Controllers
             this.InstrumentTypesRepository = instrumentTypesRepository;
         }
 
-        // GET: InstrumentTypes
         public ViewResult Index()
         {
             InstrumentTypesListModel model = new InstrumentTypesListModel();
@@ -24,14 +23,12 @@ namespace StorageControl.Web.Controllers
             return View(model);
         }
 
-        // GET: InstrumentTypes/Create
         public ViewResult Create()
         {
             InstrumentTypesCreateModel model = new InstrumentTypesCreateModel();
             return View(model);
         }
 
-        // POST: InstrumentTypes/Create
         [HttpPost]
         public ActionResult Create(InstrumentTypesCreateModel model)
         {
@@ -58,7 +55,6 @@ namespace StorageControl.Web.Controllers
             }
         }
 
-        // GET: InstrumentTypes/Edit/5
         public ActionResult Edit(int id)
         {
             if (id > 0)
@@ -74,7 +70,6 @@ namespace StorageControl.Web.Controllers
             }
         }
 
-        // POST: InstrumentTypes/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, InstrumentTypesEditModel model)
         {
@@ -97,11 +92,10 @@ namespace StorageControl.Web.Controllers
             else
             {
                 Warning(BuildErrorMessage(GetErrors()));
-                return View(model);
+                return RedirectToAction("Edit");
             }
         }
 
-        // GET: InstrumentTypes/Delete/5
         public ActionResult Delete(int id)
         {
             if (id > 0)
@@ -117,7 +111,6 @@ namespace StorageControl.Web.Controllers
             }
         }
 
-        // POST: InstrumentTypes/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, InstrumentTypesDeleteModel model)
         {
@@ -152,7 +145,7 @@ namespace StorageControl.Web.Controllers
         }
 
         #region [Model Validation]
-        public void ValidateModel(InstrumentTypesCreateModel model)
+        private void ValidateModel(InstrumentTypesCreateModel model)
         {
             if (model.InstrumentType.Name == null || model.InstrumentType.Name == string.Empty)
             {
@@ -161,7 +154,7 @@ namespace StorageControl.Web.Controllers
             }
         }
 
-        public void ValidateModel(InstrumentTypesEditModel model)
+        private void ValidateModel(InstrumentTypesEditModel model)
         {
             if (model.InstrumentType.Id < 0)
             {

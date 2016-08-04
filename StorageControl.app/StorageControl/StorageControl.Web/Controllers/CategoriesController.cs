@@ -1,7 +1,6 @@
 ﻿using StorageControl.Domain.Contracts.Interfaces;
 using StorageControl.Web.Controllers.Base;
 using StorageControl.Web.Models.Categories;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -51,19 +50,19 @@ namespace StorageControl.Web.Controllers
                     else
                     {
                         Warning("Houve um problema ao processar sua requisição. :( Tente novamente.");
-                        return View(model);
+                        return RedirectToAction("Create");
                     }
                 }
                 catch
                 {
                     Error("Oops! Ocorreu um erro ao processar sua requisição. ;( Tente novamente.");
-                    return RedirectToAction("Create", model);
+                    return RedirectToAction("Create");
                 }
             }
             else
             {
                 Warning(BuildErrorMessage(GetErrors()));
-                return RedirectToAction("Create", model);
+                return RedirectToAction("Create");
             }
         }
 
@@ -85,7 +84,7 @@ namespace StorageControl.Web.Controllers
         [HttpPost]
         public ActionResult Edit(int id, CategoriesEditModel model)
         {
-            ValidateModel(model);
+            ValidateModel(id, model);
             if (ModelState.IsValid)
             {
                 try
@@ -150,7 +149,7 @@ namespace StorageControl.Web.Controllers
                     else
                     {
                         Warning("Houve um problema ao processar sua requisição. :( Tente novamente");
-                        return View(model);
+                        return RedirectToAction("Delete", new { id = id });
                     }
                 }
                 catch
@@ -167,8 +166,7 @@ namespace StorageControl.Web.Controllers
         }
         
         #region [Model Validation]
-
-        public void ValidateModel(CategoriesCreateModel model)
+        private void ValidateModel(CategoriesCreateModel model)
         {
             if (model.Category.Name == string.Empty || model.Category.Name == null)
             {
@@ -177,9 +175,9 @@ namespace StorageControl.Web.Controllers
             }
         }
 
-        public void ValidateModel(CategoriesEditModel model)
+        private void ValidateModel(int id, CategoriesEditModel model)
         {
-            if (model.Category.Id <= 0)
+            if (id < 0)
             {
                 ModelState.AddModelError("Id", "Categoria inexistente. :(");
             }

@@ -2,6 +2,8 @@
 using StorageControl.NetFramework.Providers;
 using System.Data;
 using System.Data.SqlClient;
+using Dapper;
+using System.Collections.Generic;
 
 namespace StorageControl.DataAccess.Repositories.Abstractions
 {

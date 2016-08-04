@@ -1,4 +1,5 @@
 ﻿using Moq;
+using System.Linq;
 using StorageControl.Domain.Contracts.Interfaces;
 using StorageControl.Domain.Model.Entities;
 using StorageControl.Web.Controllers;
@@ -43,28 +44,44 @@ namespace StorageControl.Tests.Unit.Categories
         }
 
         [Theory]
-        [InlineData("")]
-        [InlineData("Whatever")]
-        public void CreateConfirm(string name)
+        [InlineData(0, null)]
+        [InlineData(1, null)]
+        [InlineData(0, "")]
+        [InlineData(1, "")]
+        [InlineData(0, "Whatever")]
+        [InlineData(1, "Whatever")]
+        public void CreateConfirm(int rowsAffected, string name)
         {
             var mockedCategoriesRepository = new Mock<ICategoriesRepository>();
             var categoryTemplate = new Category() { Id = 0, Name = name };
             var modelTemplate = new CategoriesCreateModel() { Category = categoryTemplate };
 
             mockedCategoriesRepository.Setup(k => k.Create(categoryTemplate))
-                .Returns(It.IsAny<int>())
+                .Returns(rowsAffected)
                 .Verifiable();
 
             var controller = new CategoriesController(mockedCategoriesRepository.Object);
             var result = controller.Create(modelTemplate);
-            Assert.IsType<ViewResult>(result);
+            Assert.IsType<RedirectToRouteResult>(result);
 
-            if (name == null || name == string.Empty || name == "")
+            if (name == null || name == string.Empty)
             {
-                Assert.Equal("Error", (result as ViewResult).ViewName);
+                Assert.Equal("Create",
+                    (result as RedirectToRouteResult).RouteValues.Values.First());
             }
             else
             {
+                if (rowsAffected > 0)
+                {
+                    Assert.Equal("Index",
+                    (result as RedirectToRouteResult).RouteValues.Values.First());
+
+                }
+                else
+                {
+                    Assert.Equal("Create", (result as RedirectToRouteResult).RouteValues.Values.First());
+                }
+
                 mockedCategoriesRepository.VerifyAll();
             }
         }
@@ -104,11 +121,11 @@ namespace StorageControl.Tests.Unit.Categories
         }
 
         [Theory]
-        [InlineData(0, "")]
-        [InlineData(0, "Whatever")]
-        [InlineData(1, "Whatever")]
-        [InlineData(1, "")]
-        public void EditConfirm(int id, string name)
+        [InlineData(0, 0, "")]
+        [InlineData(0, 0, "Whatever")]
+        [InlineData(1, 1, "Whatever")]
+        [InlineData(0, 1, "")]
+        public void EditConfirm(int rowsAffected, int id, string name)
         {
             var mockedCategoriesRepository = new Mock<ICategoriesRepository>();
             var categoryTemplate = new Category() { Id = id, Name = name };
@@ -120,14 +137,13 @@ namespace StorageControl.Tests.Unit.Categories
             
             var controller = new CategoriesController(mockedCategoriesRepository.Object);
             var result = controller.Edit(id, modelTemplate);
-            Assert.IsType<ViewResult>(result);
 
-            if (id < 0 || name == "" || name == string.Empty || name == null)
+            if (id < 0 || name == string.Empty || name == null)
             {
-                Assert.IsType<CategoriesEditModel>((result as ViewResult).Model);
-                var receivedModel = (result as ViewResult).Model as CategoriesEditModel;
-                Assert.Equal(categoryTemplate.Id, receivedModel.Category.Id);
-                Assert.Equal(categoryTemplate.Name, receivedModel.Category.Name);
+                if (rowsAffected > 0)
+                {
+                    Assert.IsType<RedirectToRouteResult>(result);
+                }
             }
             else
             {
@@ -170,34 +186,41 @@ namespace StorageControl.Tests.Unit.Categories
         }
 
         [Theory]
-        [InlineData(0)]
-        [InlineData(1)]
-        public void DeleteConfirm(int id)
+        [InlineData(0, 0)]
+        [InlineData(0, 1)]
+        [InlineData(1, 1)]
+        public void DeleteConfirm(int rowsAffeted, int id)
         {
             var mockedCategoriesRepository = new Mock<ICategoriesRepository>();
             var categoryTemplate = new Category() { Id = id, Name = It.IsAny<string>()};
             var modelTemplate = new CategoriesDeleteModel() { Category = categoryTemplate };
 
-            mockedCategoriesRepository.Setup(k => k.Update(new Category()))
-                .Returns(It.IsAny<int>())
+            mockedCategoriesRepository.Setup(k => k.Delete(id))
+                .Returns(rowsAffeted)
                 .Verifiable();
 
             var controller = new CategoriesController(mockedCategoriesRepository.Object);
             var result = controller.Delete(id, modelTemplate);
-            Assert.IsType<ViewResult>(result);
-
+            
             if (id <= 0)
             {
-                Assert.IsType<CategoriesDeleteModel>((result as ViewResult).Model);
-                var receivedModel = (result as ViewResult).Model as CategoriesDeleteModel;
-                Assert.Equal(categoryTemplate.Id, receivedModel.Category.Id);
-                Assert.Equal(categoryTemplate.Name, receivedModel.Category.Name);
+                Assert.IsType<ViewResult>(result);
+                Assert.Equal("Error", (result as ViewResult).ViewName);
             }
             else
             {
-                Assert.Equal("Index", (result as ViewResult).ViewName);
+                Assert.IsType<RedirectToRouteResult>(result);
+                
+                if (rowsAffeted > 0)
+                {
+                    Assert.Equal("Index",
+                        (result as RedirectToRouteResult).RouteValues.Values.First());
+                }
+                else
+                {
+                    Assert.Equal(1, (result as RedirectToRouteResult).RouteValues.Values.First());
+                }               
             }
         }
-
     }
 }

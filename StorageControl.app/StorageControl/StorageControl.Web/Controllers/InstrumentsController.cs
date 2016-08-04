@@ -159,7 +159,7 @@ namespace StorageControl.Web.Controllers
 
         #region [Model Validation]
 
-        public void ValidateModel(InstrumentsCreateModel model)
+        private void ValidateModel(InstrumentsCreateModel model)
         {
             var instrument = model.Instrument;
 
@@ -189,7 +189,7 @@ namespace StorageControl.Web.Controllers
             }
         }
 
-        public void ValidateModel(InstrumentsEditModel model)
+        private void ValidateModel(InstrumentsEditModel model)
         {
             var instrument = model.Instrument;
 
@@ -219,7 +219,7 @@ namespace StorageControl.Web.Controllers
             }
         }
 
-        public void ValidateModel(int id)
+        private void ValidateModel(int id)
         {
             if(id <= 0)
             {

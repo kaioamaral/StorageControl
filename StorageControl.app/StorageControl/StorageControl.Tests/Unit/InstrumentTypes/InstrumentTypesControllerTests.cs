@@ -117,15 +117,7 @@ namespace StorageControl.Tests.Unit.InstrumentTypes
             var controller = new InstrumentTypesController(mockedInstrumentTypesRepository.Object);
             var result = controller.Edit(id, modelTemplate);
 
-            if (id > 0 && name != null && name != string.Empty)
-            {
-                Assert.IsType<RedirectToRouteResult>(result);
-            }
-            else
-            {
-                Assert.IsType<ViewResult>(result);
-                Assert.Null((result as ViewResult).Model);
-            }
+            Assert.IsType<RedirectToRouteResult>(result);
         }
 
         [Theory]
@@ -179,7 +171,7 @@ namespace StorageControl.Tests.Unit.InstrumentTypes
 
             if (id > 0)
             {
-                Assert.IsType<RedirectToRouteResult>(result as RedirectToRouteResult);
+                Assert.IsType<ViewResult>(result);
             }
             else
             {
