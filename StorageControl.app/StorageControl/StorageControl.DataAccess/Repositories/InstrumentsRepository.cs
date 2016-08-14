@@ -1,8 +1,8 @@
 ﻿using Dapper;
+using StorageControl.DataAccess.Builders;
 using StorageControl.DataAccess.Repositories.Abstractions;
 using StorageControl.Domain.Contracts.Interfaces;
 using StorageControl.Domain.Model.Entities;
-using StorageControl.Domain.Model.Enumerators;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -13,89 +13,36 @@ namespace StorageControl.DataAccess.Repositories
     {
         public int Create(Instrument instrument)
         {
-            string sql = "create_instrument";
-            var parameters = new
-            {
-                @manufacturer = instrument.Manufacturer,
-                @model = instrument.Model,
-                @unit_price = instrument.UnitPrice,
-                @amount = instrument.Amount,
-                @category_id = instrument.Category.Id,
-                @type_id = instrument.Type.Id
-            };
-
-            using (IDbConnection con = OpenConnection(ConnectionStrings.CommerceStorage))
-            {
-                return con.Query<int>(
-                    sql: sql,
-                    param: parameters,
-                    commandType: CommandType.StoredProcedure)
-                    .FirstOrDefault();
-            }
+            return base.Create(sql: "create_instrument",
+                param: instrument.ToParameterizedObject());
         }
 
         public int Delete(int id)
         {
-            string sql = "delete_instrument";
-            var parameter = new { @id = id };
-
-            using (IDbConnection con = OpenConnection(ConnectionStrings.CommerceStorage))
-            {
-                return con.Query<int>(sql: sql, param: parameter,
-                    commandType: CommandType.StoredProcedure).FirstOrDefault();
-            }
+            return base.Delete("delete_instrument", new { @id = id });
         }
 
         public Instrument Get(int id)
         {
-            string sql = "get_instrument";
-            var parameter = new { @id = id };
-
-            using (IDbConnection con = OpenConnection(ConnectionStrings.CommerceStorage))
-            {
+            using (base.con)
                 return con.Query<Instrument, Category, InstrumentType, Instrument>(
-                    sql: sql,
+                    sql: "get_instrument",
                     map: (i, c, it) => { i.Category = c; i.Type = it; return i; },
-                    param: parameter,
+                    param: new { @id = id },
                     commandType: CommandType.StoredProcedure).Single();
-            }
         }
 
         public IEnumerable<Instrument> List()
         {
-            string sql = "list_instruments";
-
-            using (IDbConnection con = OpenConnection(ConnectionStrings.CommerceStorage))
-            {
-                return con.Query<Instrument, Category, InstrumentType, Instrument>(
-                    sql,
-                    (i, c, it) => { i.Category = c; i.Type = it; return i; },
+            using (base.con) return con.Query<Instrument, Category, InstrumentType, Instrument>(
+                    "list_instruments", (i, c, it) => { i.Category = c; i.Type = it; return i; },
                     commandType: CommandType.StoredProcedure);
-            }
         }
 
         public int Update(Instrument instrument)
         {
-            string sql = "update_instrument";
-            var parameters = new
-            {
-                @id = instrument.Id,
-                @manufacturer = instrument.Manufacturer,
-                @model = instrument.Model,
-                @unit_price = instrument.UnitPrice,
-                @amount = instrument.Amount,
-                @category_id = instrument.Category.Id,
-                @type_id = instrument.Type.Id
-            };
-
-            using (IDbConnection con = OpenConnection(ConnectionStrings.CommerceStorage))
-            {
-                return con.Query<int>(
-                    sql: sql,
-                    param: parameters,
-                    commandType: CommandType.StoredProcedure)
-                    .FirstOrDefault();
-            }
+            return base.Update(sql: "update_instrument",
+                param: instrument.ToParameterizedObject());
         }
     }
 }

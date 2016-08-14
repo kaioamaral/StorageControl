@@ -6,6 +6,8 @@ using StorageControl.Domain.Model.Enumerators;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System;
+using StorageControl.DataAccess.Builders;
 
 namespace StorageControl.DataAccess.Repositories
 {
@@ -13,62 +15,29 @@ namespace StorageControl.DataAccess.Repositories
     {
         public int Create(Category category)
         {
-            string sql = "create_category";
-            var parameter = new { @name = category.Name };
-
-            using (IDbConnection con = OpenConnection(ConnectionStrings.CommerceStorage))
-            {
-                return con.Query<int>(sql: sql, param: parameter,
-                    commandType: CommandType.StoredProcedure).FirstOrDefault();
-            }
-        }
-
-        public int Delete(int id)
-        {
-            string sql = "delete_category";
-            var parameter = new { @id = @id };
-
-            using (IDbConnection con = OpenConnection(ConnectionStrings.CommerceStorage))
-            {
-                return con.Query<int>(sql: sql, param: parameter,
-                    commandType: CommandType.StoredProcedure)
-                    .FirstOrDefault();
-            }
-        }
-
-        public Category Get(int id)
-        {
-            string sql = "get_category";
-            var parameter = new { @id = id };
-
-            using (IDbConnection con = OpenConnection(ConnectionStrings.CommerceStorage))
-            {
-                return con.Query<Category>(sql: sql, param: parameter,
-                    commandType: CommandType.StoredProcedure).FirstOrDefault();
-            }
+            return base.Create("create_category",
+                new { @name = category.Name });
         }
 
         public IEnumerable<Category> List()
         {
-            string sql = "list_categories";
+            return base.List<Category>("list_categories");
+        }
 
-            using (IDbConnection con = OpenConnection(ConnectionStrings.CommerceStorage))
-            {
-                return con.Query<Category>(sql: sql,
-                    commandType: CommandType.StoredProcedure);
-            }
+        public Category Get(int id)
+        {
+            return base.Get<Category>("get_category", new { @id = id });
         }
 
         public int Update(Category category)
         {
-            string sql = "update_category";
-            var parameter = new { @id = category.Id, @name = category.Name };
+            return base.Update("update_category",
+                category.ToParameterizedObject());
+        }
 
-            using (IDbConnection con = OpenConnection(ConnectionStrings.CommerceStorage))
-            {
-                return con.Query<int>(sql: sql, param: parameter,
-                    commandType: CommandType.StoredProcedure).FirstOrDefault();
-            }
+        public int Delete(int id)
+        {
+            return base.Delete("delete_category", new { @id = id });
         }
     }
 }

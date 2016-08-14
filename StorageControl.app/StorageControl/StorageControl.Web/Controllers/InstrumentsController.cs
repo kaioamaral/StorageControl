@@ -26,7 +26,7 @@ namespace StorageControl.Web.Controllers
         {
             InstrumentsListModel model = new InstrumentsListModel();
             model.Instruments = InstrumentsRepository.List().ToList();
-
+            
             return View(model);
         }
         
