@@ -53,8 +53,9 @@ namespace StorageControl.Web.Controllers
                         model.Instrument.Manufacturer, model.Instrument.Model));
                     return RedirectToAction("Index");
                 }
-                catch
+                catch (Exception e)
                 {
+                    Error(e.Message);
                     Error("Ocorreu um erro ao processar sua requisição. ;( Tente novamente.");
                     model.Categories = CategoriesRepository.List().ToList();
                     model.InstrumentTypes = InstrumentTypesRepository.List().ToList();

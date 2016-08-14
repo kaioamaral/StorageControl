@@ -10,43 +10,50 @@ namespace StorageControl.DataAccess.Repositories.Abstractions
 {
     public abstract class Repository
     {
-        protected IDbConnection con;
+        protected ConnectionFactory ConnectionFactory;
+        protected ConnectionStrings connectionString;
 
         public Repository()
         {
-            this.con = new ConnectionFactory()
-                .GetConnection(ConnectionStrings.CommerceStorage);
+            this.ConnectionFactory = new ConnectionFactory();
+            this.connectionString = ConnectionStrings.CommerceStorage;
         }
-        
+
         protected int Create(string sql, object param)
         {
-            using (con) return con.Query<int>(sql: sql, param: param,
-                    commandType: CommandType.StoredProcedure).FirstOrDefault();
+            using (var con = ConnectionFactory.GetConnection(ConnectionStrings.CommerceStorage))
+                return con.Query<int>(sql: sql, param: param,
+                                    commandType: CommandType.StoredProcedure)
+                                    .FirstOrDefault();
         }
 
         protected IEnumerable<T> List<T>(string sql) where T : Entity
         {
-            using (con) return con.Query<T>(sql: sql,
-                    commandType: CommandType.StoredProcedure);
+            using (var con = ConnectionFactory.GetConnection(ConnectionStrings.CommerceStorage))
+                return con.Query<T>(sql: sql,
+                                    commandType: CommandType.StoredProcedure);
         }
 
         protected T Get<T>(string sql, object param) where T : Entity
         {
-            using (con) return con.Query<T>(sql: sql, param: param,
-                    commandType: CommandType.StoredProcedure).FirstOrDefault(); 
+            using (var con = ConnectionFactory.GetConnection(ConnectionStrings.CommerceStorage))
+                return con.Query<T>(sql: sql, param: param,
+                                    commandType: CommandType.StoredProcedure).FirstOrDefault(); 
         }
 
         protected int Update(string sql, object param)
         {
-            using (con) return con.Query<int>(sql: sql, param: param,
-                    commandType: CommandType.StoredProcedure).FirstOrDefault();
+            using (var con = ConnectionFactory.GetConnection(ConnectionStrings.CommerceStorage))
+                return con.Query<int>(sql: sql, param: param,
+                                    commandType: CommandType.StoredProcedure).FirstOrDefault();
         }
 
         protected int Delete(string sql, object param)
         {
-            using (con) return con.Query<int>(sql: sql, param: param,
-                    commandType: CommandType.StoredProcedure)
-                    .FirstOrDefault(); 
+            using (var con = ConnectionFactory.GetConnection(ConnectionStrings.CommerceStorage))
+                return con.Query<int>(sql: sql, param: param,
+                                    commandType: CommandType.StoredProcedure)
+                                    .FirstOrDefault(); 
         }
     }
 }

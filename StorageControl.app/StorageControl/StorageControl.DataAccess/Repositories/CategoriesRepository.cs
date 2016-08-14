@@ -11,7 +11,7 @@ namespace StorageControl.DataAccess.Repositories
         public int Create(Category category)
         {
             return base.Create("create_category",
-                new { @name = category.Name });
+                category.ToParameterizedObject(true));
         }
 
         public IEnumerable<Category> List()
@@ -27,7 +27,7 @@ namespace StorageControl.DataAccess.Repositories
         public int Update(Category category)
         {
             return base.Update("update_category",
-                category.ToParameterizedObject());
+                category.ToParameterizedObject(false));
         }
 
         public int Delete(int id)

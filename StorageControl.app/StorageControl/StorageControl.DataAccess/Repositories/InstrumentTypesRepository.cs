@@ -11,7 +11,7 @@ namespace StorageControl.DataAccess.Repositories
         public int Create(InstrumentType instrumentType)
         {
             return base.Create("create_instrument_type",
-                new { @name = instrumentType.Name });
+                instrumentType.ToParameterizedObject(true));
         }
 
         public int Delete(int id)
@@ -33,7 +33,7 @@ namespace StorageControl.DataAccess.Repositories
         public int Update(InstrumentType instrumentType)
         {
             return base.Update("update_instrument_type",
-                instrumentType.ToParameterizedObject());
+                instrumentType.ToParameterizedObject(false));
         }
     }
 }

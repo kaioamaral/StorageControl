@@ -1,6 +1,7 @@
 ﻿using StorageControl.Domain.Contracts.Interfaces;
 using StorageControl.Web.Controllers.Base;
 using StorageControl.Web.Models.InstrumentTypes;
+using System;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -118,9 +119,7 @@ namespace StorageControl.Web.Controllers
             {
                 try
                 {
-                    model.InstrumentType = InstrumentTypesRepository.Get(id);
-
-                    int result = InstrumentTypesRepository.Delete(model.InstrumentType.Id);
+                    int result = InstrumentTypesRepository.Delete(id);
 
                     if (result > 0)
                     {
@@ -133,7 +132,7 @@ namespace StorageControl.Web.Controllers
                         return View(model);
                     }
                 }
-                catch
+                catch(Exception e)
                 {
                     return View("Error");
                 }

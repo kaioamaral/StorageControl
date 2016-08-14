@@ -14,7 +14,7 @@ namespace StorageControl.DataAccess.Repositories
         public int Create(Instrument instrument)
         {
             return base.Create(sql: "create_instrument",
-                param: instrument.ToParameterizedObject());
+                param: instrument.ToParameterizedObject(true));
         }
 
         public int Delete(int id)
@@ -24,7 +24,7 @@ namespace StorageControl.DataAccess.Repositories
 
         public Instrument Get(int id)
         {
-            using (base.con)
+            using (var con = base.ConnectionFactory.GetConnection(base.connectionString))
                 return con.Query<Instrument, Category, InstrumentType, Instrument>(
                     sql: "get_instrument",
                     map: (i, c, it) => { i.Category = c; i.Type = it; return i; },
@@ -34,15 +34,16 @@ namespace StorageControl.DataAccess.Repositories
 
         public IEnumerable<Instrument> List()
         {
-            using (base.con) return con.Query<Instrument, Category, InstrumentType, Instrument>(
-                    "list_instruments", (i, c, it) => { i.Category = c; i.Type = it; return i; },
-                    commandType: CommandType.StoredProcedure);
+            using (var con = base.ConnectionFactory.GetConnection(base.connectionString))
+                return con.Query<Instrument, Category, InstrumentType, Instrument>(
+                                    "list_instruments", (i, c, it) => { i.Category = c; i.Type = it; return i; },
+                                    commandType: CommandType.StoredProcedure);
         }
 
         public int Update(Instrument instrument)
         {
             return base.Update(sql: "update_instrument",
-                param: instrument.ToParameterizedObject());
+                param: instrument.ToParameterizedObject(false));
         }
     }
 }
