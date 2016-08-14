@@ -2,10 +2,8 @@
 using StorageControl.DataAccess.Factories;
 using StorageControl.Domain.Model.Entities.Abstractions;
 using StorageControl.Domain.Model.Enumerators;
-using StorageControl.NetFramework.Providers;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 
 namespace StorageControl.DataAccess.Repositories.Abstractions
@@ -20,31 +18,31 @@ namespace StorageControl.DataAccess.Repositories.Abstractions
                 .GetConnection(ConnectionStrings.CommerceStorage);
         }
         
-        public int Create(string sql, object param)
+        protected int Create(string sql, object param)
         {
             using (con) return con.Query<int>(sql: sql, param: param,
                     commandType: CommandType.StoredProcedure).FirstOrDefault();
         }
-        
-        public IEnumerable<T> List<T>(string sql) where T : Entity
+
+        protected IEnumerable<T> List<T>(string sql) where T : Entity
         {
             using (con) return con.Query<T>(sql: sql,
                     commandType: CommandType.StoredProcedure);
         }
-        
-        public T Get<T>(string sql, object param) where T : Entity
+
+        protected T Get<T>(string sql, object param) where T : Entity
         {
             using (con) return con.Query<T>(sql: sql, param: param,
                     commandType: CommandType.StoredProcedure).FirstOrDefault(); 
         }
 
-        public int Update(string sql, object param)
+        protected int Update(string sql, object param)
         {
             using (con) return con.Query<int>(sql: sql, param: param,
                     commandType: CommandType.StoredProcedure).FirstOrDefault();
         }
 
-        public int Delete(string sql, object param)
+        protected int Delete(string sql, object param)
         {
             using (con) return con.Query<int>(sql: sql, param: param,
                     commandType: CommandType.StoredProcedure)
